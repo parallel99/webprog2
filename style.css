@@ -7,7 +7,9 @@ div {
     box-sizing: border-box;
 }
 
-nav, footer, main {
+nav,
+footer,
+main {
     width: 100%;
 }
 
@@ -38,7 +40,8 @@ main {
     text-align: center;
 }
 
-#app, .app-chooser {
+#app,
+.app-chooser {
     height: 100%;
     display: inline-block;
     border: 1px solid black;

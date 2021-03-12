@@ -1,17 +1,25 @@
-import DisplayCoords from './app/DisplayCoords.js';
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let app;
 
-    const btn = document.getElementById('btn-1');
-    btn.addEventListener('click', function(evt) {
-        if (app) {
-            app.destroy();
-        }
+    const btns = document.getElementsByTagName('button');
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function (evt) {
+            destoryApp(app);
 
-        app = new DisplayCoords({
-            target: 'app',
-            statBar: 'stats'
+            import('./app/' + btns[i].getAttribute('data-module') + '.js').then(function (appClass) {
+                app = new appClass.default({
+                    target: 'app',
+                    statBar: 'stats'
+                });
+            });
+
         });
-    });
+    }
+
 });
+
+function destoryApp(app) {
+    if (app) {
+        app.destroy();
+    }
+}

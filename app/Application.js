@@ -1,3 +1,5 @@
+import { emptyElement, addElement } from "../utils/DOMUtils.js";
+
 /**
  * Base class for our applications.
  */
@@ -9,7 +11,6 @@ class Application {
     constructor(options) {
         const opts = options || {};
 
-        // Egysoros komment
         this.name = 'App';
 
         if (typeof opts.target === 'string') {
@@ -23,7 +24,7 @@ class Application {
         } else {
             this.statBar = opts.statBar;
         }
-        
+
         validate(this);
 
         const initTime = + new Date();
@@ -34,33 +35,20 @@ class Application {
     }
 
     init() {
-        /* Több
-        soros komment
-        */
         console.log('Elindultam.');
     }
 
     displayStats() {
         if (this.statBar) {
-            while (this.statBar.lastChild) {
-                this.statBar.lastChild.remove();
-            }
+            emptyElement(this.statBar)
 
-            const appName = document.createElement('p');
-            appName.textContent = 'Application name: ' + this.name;
-
-            const initTime = document.createElement('p');
-            initTime.textContent = 'Initialization time: ' + this.elapsedTime + ' s';
-
-            this.statBar.appendChild(appName);
-            this.statBar.appendChild(initTime);
+            addElement(this.statBar, 'p', '', 'Application name: ' + this.name);
+            addElement(this.statBar, 'p', '', 'Initialization time: ' + this.elapsedTime + ' s');
         }
     }
-    
+
     destroy() {
-        while (this.target.lastChild) {
-            this.target.lastChild.remove();
-        }
+        emptyElement(this.target);
     }
 }
 
