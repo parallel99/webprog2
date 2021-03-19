@@ -8,11 +8,25 @@ class GuessingGame extends Application {
         super.displayStats();
     }
 
+    validate() {
+        super.validate();
+
+        const min = parseInt(this.min);
+        const max = parseInt(this.max);
+
+        this.min = min || 0;
+        this.max = max === 0 ? 0 : max || 100;
+
+        if (this.max <= this.min) {
+            throw new Error('Maximum must be larger than minimum.');
+        }
+    }
+
     init() {
         super.init();
-        this.guess = Math.round(Math.random() * 100);
+        this.guess = Math.round(Math.random() * (this.max - this.min) + this.min);
 
-        addElement(this.target, 'p', 'guessing-greet', 'I tought of a number between 0 and 100. Can you guess it?');
+        addElement(this.target, 'p', 'guessing-greet', `I tought of a number between ${this.min} and ${this.max}. Can you guess it?`);
 
         this.input = addElement(this.target, 'input', 'guess-input');
         this.input.type = 'number';

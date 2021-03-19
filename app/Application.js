@@ -25,17 +25,56 @@ class Application {
             this.statBar = opts.statBar;
         }
 
+        for (let i in opts) {
+            if (i !== 'statBar' && i !== 'target') {
+                this[i] = opts[i];
+            }
+        }
+
         validate(this);
 
         const initTime = + new Date();
-        this.init();
-        this.elapsedTime = (+ new Date()) - initTime;
 
-        this.displayStats();
+        this.loadTemplate(initTime);
     }
 
     init() {
         console.log('Elindultam.');
+    }
+
+    loadTemplate(initTime) {
+        //Load CSS template
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `app/${this.constructor.name}.css`;
+        document.head.appendChild(link);
+
+        //Load HTML template
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', `app/${this.constructor.name}.html`);
+
+        xhr.addEventListener('load', function (evt) {
+
+            if (xhr.status === 200) {
+                this.target.innerHTML = xhr.responseText;
+            }
+
+            this.init();
+            this.elapsedTime = (+ new Date()) - initTime;
+
+            this.displayStats();
+
+        }.bind(this));
+
+        xhr.addEventListener('error', function (evt) {
+            this.init();
+            this.elapsedTime = (+ new Date()) - initTime;
+
+            this.displayStats();
+        }.bind(this));
+
+        xhr.send();
     }
 
     displayStats() {
@@ -48,6 +87,13 @@ class Application {
     }
 
     destroy() {
+        const links = document.head.getElementsByTagName('link');
+        for (let i = 0; i < links.length; i++) {
+            if (links[i].href.endsWith(`app/${this.constructor.name}.css`)) {
+                links[i].remove();
+                break;
+            }
+        }
         emptyElement(this.target);
     }
 }

@@ -15,7 +15,7 @@ class DisplayCoords extends Application {
         this.coordElem = document.createElement('p');
         this.target.appendChild(this.coordElem);
 
-        this.handleClick = function(evt) {
+        this.handleClick = function (evt) {
             this.coordElem.textContent = 'X: ' + evt.screenX + ' Y: ' + evt.screenY;
         }.bind(this);
 

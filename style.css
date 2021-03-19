@@ -1,9 +1,6 @@
-body {
+* {
     margin: 0;
     padding: 0;
-}
-
-div {
     box-sizing: border-box;
 }
 
@@ -24,6 +21,8 @@ nav {
 
 footer {
     height: 100px;
+    padding: 10px;
+    line-height: 30px;
 }
 
 main {
@@ -32,6 +31,10 @@ main {
 
 #app {
     width: 70%;
+    padding: 15px;
+    overflow-y: auto;
+    white-space: pre-line;
+    text-align: justify;
 }
 
 .app-chooser {
