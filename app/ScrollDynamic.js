@@ -40,8 +40,6 @@ class ScrollDynamic extends Application {
             evt.preventDefault();
             evt.stopPropagation();
 
-            console.log(evt);
-
             switch (this.mode) {
                 case 'fast':
                     container.scrollBy({
@@ -61,7 +59,7 @@ class ScrollDynamic extends Application {
                     container.scrollTop = Math.random() * container.scrollHeight;
                     break;
             }
-        });
+        }.bind(this));
     }
 }
 

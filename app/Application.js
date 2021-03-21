@@ -38,9 +38,7 @@ class Application {
         this.loadTemplate(initTime);
     }
 
-    init() {
-        console.log('Elindultam.');
-    }
+    init() { }
 
     loadTemplate(initTime) {
         //Load CSS template
