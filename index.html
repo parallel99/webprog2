@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8" />
     <title>Webprog 2 alkalmazásgyűjtemény</title>
+    <link href="./lib/bootstrap/bootstrap.css" rel="stylesheet" />
+    <script src="./lib/bootstrap/bootstrap.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="./style.css" />
     <script type="module" src="./main.js"></script>
 </head>
 
 <body>
-    <nav>Webprogramozás II. dashboard</nav>
+    <nav class="border-bottom bg-light d-flex align-items-center justify-content-center">
+        <h1 class="display-6">Webprogramozás II. dashboard</h1>
+    </nav>
     <main>
-        <div class="app-chooser">
-            <button data-module="DisplayCoords">DisplayCoords</button>
-            <button data-module="GuessingGame">Guessing game</button>
-            <button data-module="TextLoader">Text loader</button>
-            <button data-module="ScrollDynamic">Scroll dynamic</button>
+        <div class="app-chooser border-end">
+            <button class="btn btn-light" data-module="DisplayCoords">DisplayCoords</button>
+            <button class="btn btn-light" data-module="GuessingGame">Guessing game</button>
+            <button class="btn btn-light" data-module="TextLoader">Text loader</button>
+            <button class="btn btn-light" data-module="ScrollDynamic">Scroll dynamic</button>
+            <button class="btn btn-light" data-module="Form">Form</button>
         </div>
         <div id="app"></div>
     </main>
-    <footer id="stats"></footer>
+    <footer id="stats" class="border-top bg-light"></footer>
 </body>
 
 </html>

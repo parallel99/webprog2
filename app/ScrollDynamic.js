@@ -26,14 +26,20 @@ class ScrollDynamic extends Application {
 
         document.getElementById('scroll-fast').addEventListener('click', function (evt) {
             this.mode = 'fast';
+            this.deactivateBtns();
+            evt.target.classList.add('active');
         }.bind(this));
 
         document.getElementById('scroll-page').addEventListener('click', function (evt) {
             this.mode = 'page';
+            this.deactivateBtns();
+            evt.target.classList.add('active');
         }.bind(this));
 
         document.getElementById('scroll-whatever').addEventListener('click', function (evt) {
             this.mode = 'whatever';
+            this.deactivateBtns();
+            evt.target.classList.add('active');
         }.bind(this));
 
         container.addEventListener('wheel', function (evt) {
@@ -60,6 +66,12 @@ class ScrollDynamic extends Application {
                     break;
             }
         }.bind(this));
+    }
+
+    deactivateBtns() {
+        document.getElementById('scroll-fast').classList.remove('active');
+        document.getElementById('scroll-page').classList.remove('active');
+        document.getElementById('scroll-whatever').classList.remove('active');
     }
 }
 

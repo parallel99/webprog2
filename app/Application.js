@@ -80,7 +80,7 @@ class Application {
             emptyElement(this.statBar)
 
             addElement(this.statBar, 'p', '', 'Application name: ' + this.name);
-            addElement(this.statBar, 'p', '', 'Initialization time: ' + this.elapsedTime + ' s');
+            addElement(this.statBar, 'p', '', 'Initialization time: ' + this.elapsedTime + ' ms');
         }
     }
 

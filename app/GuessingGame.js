@@ -28,9 +28,9 @@ class GuessingGame extends Application {
 
         addElement(this.target, 'p', 'guessing-greet', `I tought of a number between ${this.min} and ${this.max}. Can you guess it?`);
 
-        this.input = addElement(this.target, 'input', 'guess-input');
+        this.input = addElement(this.target, 'input', 'form-control w-50 guess-input');
         this.input.type = 'number';
-        const btn = addElement(this.target, 'button', 'guessing-btn', 'Guess');
+        const btn = addElement(this.target, 'button', 'btn btn-secondary w-50 my-3 guessing-btn', 'Guess');
         this.feedback = addElement(this.target, 'p', 'guessing-feedback');
 
         btn.addEventListener('click', function (evt) {
