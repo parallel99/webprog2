@@ -7,3 +7,14 @@ form button {
     margin: auto 0;
     width: 100%;
 }
+
+.float-start {
+    margin-right: 1.3em;
+    margin-left: 1.3em;
+    opacity: 0 !important;
+}
+
+.form-floating {
+    opacity: 1;
+    transition: margin 1s linear, opacity 1s linear;
+}

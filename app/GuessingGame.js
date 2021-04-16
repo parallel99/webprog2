@@ -11,11 +11,10 @@ class GuessingGame extends Application {
     validate() {
         super.validate();
 
-        const min = parseInt(this.min);
-        const max = parseInt(this.max);
 
         this.min = min || 0;
         this.max = max === 0 ? 0 : max || 100;
+
 
         if (this.max <= this.min) {
             throw new Error('Maximum must be larger than minimum.');

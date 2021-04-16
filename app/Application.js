@@ -56,6 +56,7 @@ class Application {
 
             if (xhr.status === 200) {
                 this.target.innerHTML = xhr.responseText;
+                this.target.dispatchEvent(new Event('appDOMLoaded'));
             }
 
             this.init();

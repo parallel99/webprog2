@@ -4,9 +4,16 @@ class Form extends Application {
     constructor(options) {
         super(options);
 
-        this.name = 'Form';
+        this.removeFloatClass = function() {
+            setTimeout(() => {
+                const animatedElems = [...this.target.getElementsByClassName('float-start')];
+                for (let i = 0; i < animatedElems.length; i++){
+                    animatedElems[i].classList.remove('float-start');
+                }
+            }, 100)
+        }.bind(this);
 
-        this.displayStats();
+        this.target.addEventListener('appDOMLoaded', this.removeFloatClass);
     }
 
     init() {
@@ -83,6 +90,10 @@ class Form extends Application {
                 form.phoneNumber.classList.add('is-valid');
             }
         }.bind(this));
+    }
+
+    destroy() {
+        this.target.removeEventListener('appDOMLoaded', this.removeFloatClass);
     }
 
     clearValidationMessages() {
