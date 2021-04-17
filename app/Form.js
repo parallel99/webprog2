@@ -4,16 +4,20 @@ class Form extends Application {
     constructor(options) {
         super(options);
 
-        this.removeFloatClass = function() {
+        this.removeFloatClass = function () {
             setTimeout(() => {
                 const animatedElems = [...this.target.getElementsByClassName('float-start')];
-                for (let i = 0; i < animatedElems.length; i++){
+                for (let i = 0; i < animatedElems.length; i++) {
                     animatedElems[i].classList.remove('float-start');
                 }
             }, 100)
         }.bind(this);
 
         this.target.addEventListener('appDOMLoaded', this.removeFloatClass);
+
+        this.name = 'Form';
+
+        this.displayStats();
     }
 
     init() {
@@ -93,6 +97,8 @@ class Form extends Application {
     }
 
     destroy() {
+        super.destroy();
+
         this.target.removeEventListener('appDOMLoaded', this.removeFloatClass);
     }
 

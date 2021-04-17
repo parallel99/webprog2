@@ -5,6 +5,8 @@ class GuessingGame extends Application {
     constructor(options) {
         super(options);
 
+        this.name = 'Guessing Game';
+
         super.displayStats();
     }
 

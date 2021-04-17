@@ -68,6 +68,10 @@ class ScrollDynamic extends Application {
         }.bind(this));
     }
 
+    destroy() {
+        super.destroy();
+    }
+
     deactivateBtns() {
         document.getElementById('scroll-fast').classList.remove('active');
         document.getElementById('scroll-page').classList.remove('active');

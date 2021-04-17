@@ -24,6 +24,11 @@ class TextLoader extends Application {
 
         xhr.send();
     }
+
+    destroy() {
+        super.destroy();
+    }
+
 }
 
 export default TextLoader;

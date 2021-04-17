@@ -4,17 +4,21 @@ class Canvas extends Application {
     constructor(options) {
         super(options);
 
-        this.drawWhenLoaded = function() {
-           this.canvas = this.target.children[0];
+        this.name = 'Canvas';
 
-           this.canvas.width = this.canvas.clientWidth;
-           this.canvas.height = this.canvas.clientHeight;
-           this.ctx = this.canvas.getContext('2d');
-           this.ctx.imageSmoothingEnabled = true;
+        this.displayStats();
 
-           this.initalizeModel();
+        this.drawWhenLoaded = function () {
+            this.canvas = this.target.children[0];
 
-           window.requestAnimationFrame(this.drawShapes.bind(this));
+            this.canvas.width = this.canvas.clientWidth;
+            this.canvas.height = this.canvas.clientHeight;
+            this.ctx = this.canvas.getContext('2d');
+            this.ctx.imageSmoothingEnabled = true;
+
+            this.initalizeModel();
+
+            window.requestAnimationFrame(this.drawShapes.bind(this));
         }.bind(this);
 
         this.target.addEventListener('appDOMLoaded', this.drawWhenLoaded);
@@ -25,6 +29,8 @@ class Canvas extends Application {
     }
 
     destroy() {
+        super.destroy();
+
         this.target.removeEventListener('appDOMLoaded', this.drawWhenLoaded);
         clearInterval(this.intervalKey);
     }
@@ -32,44 +38,61 @@ class Canvas extends Application {
     initalizeModel() {
         this.balls = [];
 
-        const sun = new Ball(30);
-        sun.x = 70;
-        sun.y = 70;
-        sun.speed = 3;
-        this.balls.push(sun);
+        const blueBall = new Ball(30);
+        blueBall.x = 70;
+        blueBall.y = 70;
+        blueBall.speed = 2.5;
+        blueBall.color = "#0275d8";
+        this.balls.push(blueBall);
 
-        this.intervalKey = setInterval(this.updateModel.bind(this), 10);
+        const greenBall = new Ball(30);
+        greenBall.x = 70;
+        greenBall.y = 70;
+        greenBall.speed = 2.5;
+        greenBall.color = "#5cb85c";
+        this.balls.push(greenBall);
+
+        const yellowBall = new Ball(30);
+        yellowBall.x = 70;
+        yellowBall.y = 70;
+        yellowBall.speed = 2.5;
+        yellowBall.color = "#f0ad4e";
+        this.balls.push(yellowBall);
+
+        this.intervalKey = setInterval(this.updateModels.bind(this), 10);
     }
 
-    updateModel(){
-        const sun = this.balls[0];
+    updateModels() {
+        for (let i = 0; i < this.balls.length; i++) {
 
-        sun.x += sun.speed * sun.dir[0];
-        sun.y += sun.speed * sun.dir[1];
+            const ball = this.balls[i];
 
-        if(sun.x >= this.canvas.width){
-            sun.dir[0] = - 1;
-        }
-        if(sun.y >= this.canvas.width){
-            sun.dir[1] = - 1;
-        }
-        if(sun.x <= 0){
-            sun.dir[0] = 1;
-        }
-        if(sun.y <= 0){
-            sun.dir[1] = 1;
+            ball.x += ball.speed * ball.dir[0];
+            ball.y += ball.speed * ball.dir[1];
+
+            if (ball.x >= (this.canvas.width - ball.radius)) {
+                ball.dir[0] = - 1;
+            }
+            if (ball.y >= (this.canvas.height - ball.radius)) {
+                ball.dir[1] = - 1;
+            }
+            if (ball.x <= ball.radius) {
+                ball.dir[0] = 1;
+            }
+            if (ball.y <= ball.radius) {
+                ball.dir[1] = 1;
+            }
         }
     }
 
-    drawShapes(){
+    drawShapes() {
         const height = this.canvas.clientHeight;
         const width = this.canvas.clientWidth;
 
-        this.ctx.clearRect(0,0, width, height);
+        this.ctx.clearRect(0, 0, width, height);
 
-        this.ctx.fillStyle = 'yellow';
-
-        for(let i = 0; i < this.balls.length; i++) {
+        for (let i = 0; i < this.balls.length; i++) {
+            this.ctx.fillStyle = this.balls[i].color;
             this.ctx.beginPath();
             this.ctx.arc(this.balls[i].x, this.balls[i].y, this.balls[i].radius, 0, Math.PI * 2);
             this.ctx.fill();
@@ -80,12 +103,13 @@ class Canvas extends Application {
 }
 
 class Ball {
-    constructor(radius) {
+    constructor(radius, color) {
         this.x = 0;
         this.y = 0;
         this.radius = radius;
         this.speed = 1;
-        this.dir = [1, 1];
+        this.dir = [Math.random(), Math.random()];
+        this.color = color;
     }
 }
 
