@@ -27,7 +27,7 @@ class Canvas extends Application {
         this.target.addEventListener('appDOMLoaded', this.drawWhenLoaded);
 
         this.onJumpBtnPress = function (evt) {
-            if(evt.key === 'w' && !this.jumping) {
+            if (evt.key === 'w' && !this.jumping) {
                 this.jumping = true;
             }
         }.bind(this);
@@ -51,7 +51,7 @@ class Canvas extends Application {
         this.player = new Player();
         this.background = new Image();
         this.background.src = './res/game_background.png';
-        this.background.addEventListener('load', function (){
+        this.background.addEventListener('load', function () {
             window.requestAnimationFrame(this.render.bind(this));
         }.bind(this));
         this.backgroundPos = 0;
@@ -61,20 +61,18 @@ class Canvas extends Application {
 
     updateModels() {
         this.backgroundPos++;
-        if (this.backgroundPos === this.background.width){
+        if (this.backgroundPos === this.background.width) {
             this.backgroundPos = 0;
         }
 
         if (this.jumping) {
-            if (this.vertPos < 50) {
-                this.player.vertPos += this.jumpDir;
-                if (this.vertPos === 50) {
-                    this.jumpDir = -1;
-                }
-                if (this.player.vertPos === 0 && this.jumpDir === -1) {
-                    this.jumping = false;
-                    this.jumpDir = 1;
-                }
+            this.player.vertPos += this.jumpDir;
+            if (this.player.vertPos === 50) {
+                this.jumpDir = -1;
+            }
+            if (this.player.vertPos === 0 && this.jumpDir === -1) {
+                this.jumping = false;
+                this.jumpDir = 1;
             }
         }
     }
@@ -87,13 +85,13 @@ class Canvas extends Application {
 
         this.renderBackground(width, height);
 
-        this.ctx.strokeRect(20, height/2 - 10 - this.player.height - this.player.vertPos, this.player.width, this.player.height);
+        this.ctx.strokeRect(20, height / 2 - 10 - this.player.height - this.player.vertPos, this.player.width, this.player.height);
 
         window.requestAnimationFrame(this.render.bind(this));
     }
 
     renderBackground(width, height) {
-        this.ctx.drawImage(this.background, this.backgroundPos, 0, width, height, 0, height / 2 - 500, width, height );
+        this.ctx.drawImage(this.background, this.backgroundPos, 0, width, height, 0, height / 2 - 500, width, height);
         const emptyLeft = width - (this.background.width - this.backgroundPos);
 
         if (emptyLeft > 0) {
