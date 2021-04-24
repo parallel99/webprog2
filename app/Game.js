@@ -4,7 +4,7 @@ class Canvas extends Application {
     constructor(options) {
         super(options);
 
-        this.name = 'Canvas';
+        this.name = 'Game';
 
         this.displayStats();
 
@@ -66,8 +66,8 @@ class Canvas extends Application {
         }
 
         if (this.jumping) {
-            this.player.vertPos += this.jumpDir;
-            if (this.player.vertPos === 50) {
+            this.player.vertPos += this.jumpDir * 2;
+            if (this.player.vertPos === 100) {
                 this.jumpDir = -1;
             }
             if (this.player.vertPos === 0 && this.jumpDir === -1) {
@@ -91,11 +91,11 @@ class Canvas extends Application {
     }
 
     renderBackground(width, height) {
-        this.ctx.drawImage(this.background, this.backgroundPos, 0, width, height, 0, height / 2 - 500, width, height);
+        this.ctx.drawImage(this.background, this.backgroundPos, 0, width, height, 0, 0, width, height);
         const emptyLeft = width - (this.background.width - this.backgroundPos);
 
         if (emptyLeft > 0) {
-            this.ctx.drawImage(this.background, 0, 0, emptyLeft, height, width - emptyLeft, height / 2 - 200, emptyLeft, height / 2);
+            this.ctx.drawImage(this.background, 0, 0, emptyLeft, height, width - emptyLeft, 0, emptyLeft, height);
         }
     }
 }
