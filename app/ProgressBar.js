@@ -22,7 +22,6 @@ class ProgressBar extends Application {
     set state(value) {
         this.state_ = value;
         this.barFill.style.width = `${value}%`;
-        //timeout 0
     }
 
     init() {
@@ -36,7 +35,7 @@ class ProgressBar extends Application {
     destroy() {
         super.destroy();
 
-        this.target.removeEventListener('appDOMLoaded', this.drawWhenLoaded);
+        this.target.removeEventListener('appDOMLoaded', this.setupProgress);
         clearInterval(this.intervalKey);
     }
 
@@ -62,23 +61,31 @@ class ProgressBar extends Application {
         this.state = newVal;
     }
 
-    async findPrimes(numPrimes) {
+    async findPrimes(numPrimes, currNum, primeArr) {
         if (typeof numPrimes !== 'number' || (numPrimes | 0) !== numPrimes || numPrimes < 0) {
             throw new Error('Number of primes must be a positive integer.');
         }
 
-        const primeArr = [];
+        primeArr = primeArr || [];
 
         if (numPrimes === 0) {
             return primeArr;
         }
 
-        let currNum = 1;
-        while (true) {
+        currNum = currNum || 1;
+        while (primeArr.length < numPrimes) {
             if (this.isPrime(currNum)) {
                 primeArr.push(currNum);
 
-                this.updateState(primeArr.length / numPrimes * 100);
+                this.state = primeArr.length / numPrimes * 100;
+
+                if (primeArr.length >= numPrimes) {
+                    this.state = 100;
+                    return primeArr;
+                } else if (primeArr.length % 100 === 0) {
+                    currNum += currNum < 3 ? 1 : 2;
+                    break;
+                }
 
                 if (primeArr.length >= numPrimes) {
                     break;
@@ -88,7 +95,11 @@ class ProgressBar extends Application {
             currNum += currNum < 3 ? 1 : 2;
         }
 
-        return primeArr;
+        return await new Promise(function (res) {
+            setTimeout(function () {
+                res(this.findPrimes(numPrimes, currNum, primeArr));
+            }.bind(this), 0);
+        }.bind(this));
     }
 
     isPrime(num) {
